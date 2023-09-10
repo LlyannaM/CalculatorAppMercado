@@ -7,10 +7,9 @@
     tools:context=".CalculatorActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
         android:orientation="vertical"
         android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,21 +39,21 @@
                 android:textSize="@dimen/buttonFontSize" />
 
             <Button
-                android:id="@+id/signButton"
+                android:id="@+id/leftParenthesesButton"
                 android:layout_width="@dimen/buttonWidthAndHeight"
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
                 android:layout_weight="0"
-                android:text="+/-"
-                android:textSize="@dimen/buttonFontSize" />
+                android:text="("
+                android:textSize="24sp" />
 
             <Button
-                android:id="@+id/percentButton"
+                android:id="@+id/RightParenthesesButton"
                 android:layout_width="@dimen/buttonWidthAndHeight"
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
                 android:layout_weight="0"
-                android:text="%"
+                android:text=")"
                 android:textSize="@dimen/buttonFontSize" />
 
             <Button
@@ -249,6 +248,44 @@
                 android:text="="
                 android:textSize="@dimen/buttonFontSize" />
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="94dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.888">
+
+        <TextView
+            android:id="@+id/equationView"
+            android:layout_width="@dimen/equationTextViewWidth"
+            android:layout_height="@dimen/equationTextViewHeight"
+            android:layout_margin="@dimen/buttonMargin"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="@color/md_theme_dark_onBackground"
+            android:textSize="@dimen/equationFontSize" />
+
+        <TextView
+            android:id="@+id/answerView"
+            android:layout_width="@dimen/AnswerTextViewWidth"
+            android:layout_height="@dimen/equationTextViewHeight"
+            android:layout_margin="@dimen/buttonMargin"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="@color/md_theme_dark_onBackground"
+            android:textSize="@dimen/equationFontSize" />
+
 
     </LinearLayout>
 

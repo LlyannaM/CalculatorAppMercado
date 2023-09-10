@@ -18,6 +18,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent (this, CalculatorActivity.class);
         startActivity(intent);
 
-
     }
 }

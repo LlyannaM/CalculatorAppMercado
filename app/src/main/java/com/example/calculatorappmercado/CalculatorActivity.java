@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class CalculatorActivity extends AppCompatActivity {
 
@@ -13,5 +14,13 @@ public class CalculatorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calculator);
     }
 
-    Intent intent = getIntent();
+
+    public void createEquation (View v) {
+
+
+    }
+
+
+
+
 }
