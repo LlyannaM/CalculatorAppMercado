@@ -8,7 +8,7 @@
     <dimen name="equationFontSize">30sp</dimen>
     <dimen name="answerFontSize">40sp</dimen>
     <dimen name="equationTextViewHeight">70dp</dimen>
-    <dimen name="equationTextViewWidth">200dp</dimen>
-    <dimen name="AnswerTextViewWidth">80dp</dimen>
+    <dimen name="equationTextViewWidth">175dp</dimen>
+    <dimen name="AnswerTextViewWidth">50dp</dimen>
 
 </resources>
