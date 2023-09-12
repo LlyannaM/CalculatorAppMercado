@@ -239,16 +239,6 @@
 
 
             <Button
-                android:id="@+id/decimalButton"
-                android:layout_width="@dimen/buttonWidthAndHeight"
-                android:layout_height="@dimen/buttonWidthAndHeight"
-                android:layout_margin="@dimen/buttonMargin"
-                android:layout_weight="1"
-                android:text="."
-                android:textSize="@dimen/buttonFontSize"
-                android:onClick = "createEquation"/>
-
-            <Button
                 android:id="@+id/equalsButton"
                 android:layout_width="@dimen/buttonWidthAndHeight"
                 android:layout_height="@dimen/buttonWidthAndHeight"
