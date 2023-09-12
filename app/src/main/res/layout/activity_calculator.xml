@@ -34,44 +34,35 @@
                 android:layout_width="@dimen/buttonWidthAndHeight"
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
-                android:layout_weight="0"
+                android:layout_weight="1"
                 android:text="C"
                 android:textSize="@dimen/buttonFontSize"
-                android:onClick = "createEquation"/>
+                android:onClick = "clearEquation"/>
 
             <Button
-                android:id="@+id/leftParenthesesButton"
+                android:id="@+id/previousAnswerButton"
                 android:layout_width="@dimen/buttonWidthAndHeight"
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
-                android:layout_weight="0"
-                android:text="("
-                android:textSize="24sp"
-                android:onClick = "createEquation"/>
-
-            <Button
-                android:id="@+id/RightParenthesesButton"
-                android:layout_width="@dimen/buttonWidthAndHeight"
-                android:layout_height="@dimen/buttonWidthAndHeight"
-                android:layout_margin="@dimen/buttonMargin"
-                android:layout_weight="0"
-                android:text=")"
+                android:layout_weight="2"
+                android:text="Ans"
                 android:textSize="@dimen/buttonFontSize"
                 android:onClick = "createEquation"/>
+
 
             <Button
                 android:id="@+id/multiplyButton"
                 android:layout_width="@dimen/buttonWidthAndHeight"
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
-                android:layout_weight="0"
+                android:layout_weight="1"
                 android:text="x"
                 android:textSize="@dimen/buttonFontSize"
                 android:onClick = "createEquation"/>
 
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
@@ -117,9 +108,9 @@
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
                 android:layout_weight="0"
-                android:text="divide symbol"
-                android:textSize="@dimen/buttonFontSize"
-                android:onClick = "createEquation"/>
+                android:onClick="createEquation"
+                android:text="/"
+                android:textSize="@dimen/buttonFontSize" />
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -241,7 +232,7 @@
                 android:layout_width="@dimen/buttonWidthAndHeight"
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:text="0"
                 android:textSize="@dimen/buttonFontSize"
                 android:onClick = "createEquation"/>
@@ -265,7 +256,7 @@
                 android:layout_weight="1"
                 android:text="="
                 android:textSize="@dimen/buttonFontSize"
-                android:onClick = "createEquation"/>
+                android:onClick = "showResult"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -275,7 +266,7 @@
         android:layout_height="94dp"
         android:layout_weight="1"
         android:gravity="bottom"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
