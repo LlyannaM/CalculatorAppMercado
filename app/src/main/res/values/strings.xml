@@ -1,4 +1,8 @@
 <resources>
+    <string name="welcomeMessage">Welcome to the Calculator App</string>
+    <string name="equationText">Your equation appears here!</string>
+    <string name="answerText">Your Answer appears here!</string>
+    <string name="errorMessage">Error</string>
     <string name="app_name">CalculatorAppMercado</string>
     <string name="title_activity_calculator">CalculatorActivity</string>
     <!-- Strings used for fragments for navigation -->
@@ -6,7 +10,6 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

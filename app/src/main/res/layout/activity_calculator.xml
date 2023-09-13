@@ -29,36 +29,27 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
+
             <Button
                 android:id="@+id/clearButton"
                 android:layout_width="@dimen/buttonWidthAndHeight"
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
-                android:layout_weight="1"
+                android:layout_weight="4"
+                android:onClick="clearEquation"
                 android:text="C"
-                android:textSize="@dimen/buttonFontSize"
-                android:onClick = "clearEquation"/>
-
-            <Button
-                android:id="@+id/previousAnswerButton"
-                android:layout_width="@dimen/buttonWidthAndHeight"
-                android:layout_height="@dimen/buttonWidthAndHeight"
-                android:layout_margin="@dimen/buttonMargin"
-                android:layout_weight="2"
-                android:text="Ans"
-                android:textSize="@dimen/buttonFontSize"
-                android:onClick = "createEquation"/>
-
+                android:textSize="@dimen/buttonFontSize" />
 
             <Button
                 android:id="@+id/multiplyButton"
                 android:layout_width="@dimen/buttonWidthAndHeight"
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
-                android:layout_weight="1"
+                android:layout_weight="0"
+                android:backgroundTint="@color/md_theme_dark_tertiary"
+                android:onClick="createEquation"
                 android:text="x"
-                android:textSize="@dimen/buttonFontSize"
-                android:onClick = "createEquation"/>
+                android:textSize="@dimen/buttonFontSize" />
 
         </LinearLayout>
 
@@ -108,12 +99,13 @@
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
                 android:layout_weight="0"
+                android:backgroundTint="@color/md_theme_dark_tertiary"
                 android:onClick="createEquation"
                 android:text="/"
                 android:textSize="@dimen/buttonFontSize" />
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
@@ -159,12 +151,13 @@
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
                 android:layout_weight="0"
+                android:backgroundTint="@color/md_theme_dark_tertiary"
+                android:onClick="createEquation"
                 android:text="-"
-                android:textSize="@dimen/buttonFontSize"
-                android:onClick = "createEquation"/>
+                android:textSize="@dimen/buttonFontSize" />
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
@@ -211,9 +204,10 @@
                 android:layout_height="@dimen/buttonWidthAndHeight"
                 android:layout_margin="@dimen/buttonMargin"
                 android:layout_weight="0"
+                android:backgroundTint="@color/md_theme_dark_tertiary"
+                android:onClick="createEquation"
                 android:text="+"
-                android:textSize="@dimen/buttonFontSize"
-                android:onClick = "createEquation"/>
+                android:textSize="@dimen/buttonFontSize" />
         </LinearLayout>
 
 
@@ -252,19 +246,19 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="94dp"
+        android:layout_width="385dp"
+        android:layout_height="244dp"
         android:layout_weight="1"
-        android:gravity="bottom"
+        android:gravity="right"
         android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888">
+        app:layout_constraintVertical_bias="0.533">
+
 
         <TextView
             android:id="@+id/equationView"
@@ -272,7 +266,7 @@
             android:layout_height="@dimen/equationTextViewHeight"
             android:layout_margin="@dimen/buttonMargin"
             android:layout_weight="1"
-            android:text="TextView"
+            android:text="@string/equationText"
             android:textColor="@color/md_theme_dark_onBackground"
             android:textSize="@dimen/equationFontSize" />
 
@@ -282,7 +276,7 @@
             android:layout_height="@dimen/equationTextViewHeight"
             android:layout_margin="@dimen/buttonMargin"
             android:layout_weight="1"
-            android:text="TextView"
+            android:text="@string/answerText"
             android:textColor="@color/md_theme_dark_onBackground"
             android:textSize="@dimen/equationFontSize" />
 

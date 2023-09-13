@@ -1,19 +1,20 @@
 package com.example.calculatorappmercado;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+
 
 public class CalculatorActivity extends AppCompatActivity {
 
     private static String equation = "";
+    private static ArrayList<Double> numList = new ArrayList<>();
+    private static ArrayList<String> operationList = new ArrayList<>();
 
 
     @Override
@@ -74,142 +75,158 @@ public class CalculatorActivity extends AppCompatActivity {
 
 
     public void clearEquation(View clearButton) {
-        if (clearButton.getId() == R.id.clearButton && equation.length() != 0) {
-            Log.i("Mercado", "Deleted character in the equation");
+        Log.i("Mercado", "Deleted character in the equation");
+        if (equation.length() != 0) {
             equation = equation.substring(0, equation.length() - 1);
             TextView equationTV = findViewById(R.id.equationView);
             equationTV.setText(equation);
         }
     }
 
-    public void showResult (View v) {
-        String finalResult = "";
-        int length = equation.length();
-        TextView resultTV = findViewById(R.id.answerView);
-        if (v.getId() == R.id.equalsButton) {
-            if ((equation.length() == 0) || (equation.indexOf("**") != -1) || (equation.indexOf("//") != -1)
-                    || (equation.indexOf("++") != -1) || (equation.indexOf("**") != -1) || (equation.substring(0, 1).equals("*")) || (equation.indexOf("..") != -1) ||
-                    (equation.substring(0, 1).equals("/")) || (equation.substring(0, 1).equals("+")) ||
-                    (equation.substring(length - 1, length).equals("*")) || (equation.substring(length - 1, length).equals("/")) ||
-                    (equation.substring(length - 1, length).equals("+")) || (equation.substring(length - 1, length).equals("-"))) {
-                finalResult = "There's a typo in your equation. Please fix it.";
-                Log.i("Mercado", "typo made");
-            } else {
-                String equationCopy = equation;
-                boolean keepGoing = true;
-                while (keepGoing & equationCopy.indexOf("+") != -1 || equationCopy.indexOf("-") != -1 || equationCopy.indexOf("*") != -1 || equationCopy.indexOf("/") != -1) {
+    // need a public void showResult method
+    // evaluate expression method
+    // possibly a perform operations method
 
-                    if (equationCopy.indexOf("*") != -1) {
-                        equationCopy = performOperation(equationCopy, (equationCopy.indexOf("*")));
-                    } else if (equationCopy.indexOf("/") != -1) {
-                        equationCopy = performOperation(equationCopy, (equationCopy.indexOf("/")));
-                    } else if (equationCopy.indexOf("+") != -1) {
-                        equationCopy = performOperation(equationCopy, (equationCopy.indexOf("+")));
-                    } else if (equationCopy.indexOf("-") != -1) {
-                        equationCopy = performOperation(equationCopy, (equationCopy.indexOf("-")));
-                    }
-                    if (isInteger(equationCopy)) {
-                        Log.i("Mercado", "result is a negative int");
-                        keepGoing = false;
-                    }
+    public void findNumList () {
+        numList.clear();
+        Log.i("Mercado", "findNumListcalled");
+        int startIndex = 0;
+        int endIndex = 0;
 
+        while (endIndex <= equation.length()) {
+            if (endIndex == equation.length() || !Character.isDigit(equation.charAt(endIndex))) {
+                if (endIndex > startIndex) {
+                    String numberStr = equation.substring(startIndex, endIndex);
+                    double number = Double.parseDouble(numberStr);
+                    numList.add(number);
+                    Log.i("Mercado", "findNumList currently adding " + numberStr);
+                }
+                startIndex = endIndex + 1;
+            }
+            endIndex++;
+        }
+        Log.i("Mercado", "findNumList initial" + numList.toString());
+            for (int i = numList.size(); i > 0; i--) {
+                    numList.add(i, null);
+                    Log.i("Mercado", "null added");
                 }
 
-                finalResult = equationCopy;
+        Log.i("Mercado", "findNumList CREATED" + numList.toString());
             }
 
-            resultTV.setText(finalResult);
-        }
-    }
 
-    public String performOperation(String equationCopy, int indexOfOperator) {
-        int newNum = 0;
-        String operator = equationCopy.substring(indexOfOperator, indexOfOperator + 1);
-        int leftNum = getLeftNumber(equationCopy, indexOfOperator);
-        int rightNum = getRightNumber(equationCopy, indexOfOperator);
 
-        if (operator.equals("*")) {
-            newNum = leftNum*rightNum;
-        }
-        else if (operator.equals("/")){
-            if (rightNum != 0) {
-                newNum = leftNum / rightNum;
-            } else {
-                return "Error";
+
+    public void setOperationList () {
+        operationList.clear();
+        for (int i = 0; i < equation.length(); i++) {
+            if (equation.charAt(i) == '+' || (equation.charAt(i) == '-' && i != 0)
+                    || equation.charAt(i) == '/' || equation.charAt(i) == '*') {
+                operationList.add(String.valueOf(equation.charAt(i)));
             }
         }
-        else if (operator.equals("+")) {
-            newNum = leftNum+rightNum;
+        Log.i("Mercado", "operation list created" + operationList.toString());
+    }
+
+    public void showResult(View v) {
+        Log.i("Mercado", "calculating result");
+        TextView resultTV = findViewById(R.id.answerView);
+        double result = 0;
+        if (typoCheck()) {
+            resultTV.setText("Error");
         }
+        else {
+        findNumList();
+        setOperationList();
 
-        else if (operator.equals("-")) {
-            newNum = leftNum - rightNum;
-        }
+        while (numList.size() > 2) {
 
-            String newEquation = equationCopy.substring(0, indexOfOperator - findNumberOfDigits(leftNum)) + newNum +
-                    equationCopy.substring(indexOfOperator + findNumberOfDigits(rightNum) + 1);
+            if (operationList.indexOf("*") != -1 || operationList.indexOf("/") != -1) {
+                int multiplicationIndex = operationList.indexOf("*");
+                int divisionIndex = operationList.indexOf("/"); // if minus index is
 
-            Log.i("Mercado", newEquation);
+                if (divisionIndex == -1) {
+                    performOperation(operationList.indexOf("*"), "*");
+                } else if (multiplicationIndex == -1) {
+                    performOperation(operationList.indexOf("/"), "/");
+                } else if (multiplicationIndex < divisionIndex) {
+                    performOperation(operationList.indexOf("*"), "*");
+                } else {
+                    performOperation(operationList.indexOf("/"), "/");
+                }
 
-            if (String.valueOf(newNum).equals(newEquation)) {
+//                    if (operationList.indexOf("*") < operationList.indexOf("/") && operationList.indexOf("*") != -1 && operationList.indexOf("/") != -1) {
+//                        performOperation(operationList.indexOf("*"), "*");
+//                    } else if (operationList.indexOf("/") != -1) {
+//                        performOperation(operationList.indexOf("/"), "/");
+//                    }
+            } else if (operationList.indexOf("+") != -1 || operationList.indexOf("-") != -1) {
+                int plusIndex = operationList.indexOf("+");
+                int minusIndex = operationList.indexOf("-"); // if minus index is
 
+                if (minusIndex == -1) {
+                    performOperation(operationList.indexOf("+"), "+");
+                } else if (plusIndex == -1) {
+                    performOperation(operationList.indexOf("-"), "-");
+                } else if (plusIndex < minusIndex) {
+                    performOperation(operationList.indexOf("+"), "+");
+                } else {
+                    performOperation(operationList.indexOf("-"), "-");
+                }
+//                    if ((operationList.indexOf("+") < operationList.indexOf("-")) && operationList.indexOf("+") != -1 && operationList.indexOf("-") != -1) { // issue with logic is here.
+//                        performOperation(operationList.indexOf("+"), "+");
+//                    } else if (operationList.indexOf("-") != -1) {
+//                        performOperation(operationList.indexOf("-"), "-");
+//                    }
             }
-            return newEquation;
-
-
-    }
-
-    public boolean isInteger(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            // It's not a valid integer
-            return false;
+        }
+            result = numList.get(0);
+            resultTV.setText("= "  + String.valueOf(result));
         }
     }
 
-
-
-    public int findNumberOfDigits (int num) {
-        int numDigits = 0;
-        int integerNum = (int) (num);
-        while (integerNum != 0) {
-            numDigits++;
-            integerNum /= 10;
-        }
-        return numDigits;
-
+    public boolean typoCheck () {
+        int length = equation.length();
+       return (equation.length() == 0) || (equation.indexOf("**") != -1) || (equation.indexOf("//") != -1)
+               || (equation.indexOf("++") != -1) || (equation.indexOf("**") != -1) || (equation.substring(0, 1).equals("*")) || (equation.indexOf("..") != -1) ||
+               (equation.substring(0, 1).equals("/")) || (equation.substring(0, 1).equals("+")) ||
+               (equation.substring(length - 1, length).equals("*")) || (equation.substring(length - 1, length).equals("/")) ||
+               (equation.substring(length - 1, length).equals("+")) || (equation.substring(length - 1, length).equals("-"));
 
     }
 
-    public int getLeftNumber (String equationCopy, int indexOfOperator) {
-        String leftNumStr = "";
-        int index = indexOfOperator - 1;
-        while(index >= 0 && !equationCopy.substring(index, index + 1).equals("+") && !equationCopy.substring(index, index + 1).equals("-") &&
-                !equationCopy.substring(index, index + 1).equals("*") && !equationCopy.substring(index, index + 1).equals("/")) {
-            leftNumStr += equationCopy.substring(index, index + 1);
-            index--;
-        }
-        int leftNum = Integer.valueOf(leftNumStr);
-        return leftNum;
-    }
+    public void performOperation(int indexOfOperationFromList, String operation) {
+        Log.i("Mercado", "performOperationCalled");
+        Log.i("Mercado", numList.toString());
+        Log.i("Mercado", operationList.toString());
 
-    public int getRightNumber (String equationCopy, int indexOfOperator) {
-        String rightNumStr = "";
-        int index = indexOfOperator + 1;
-        while(index < equationCopy.length() && !equationCopy.substring(index, index + 1).equals("+") && !equationCopy.substring(index, index + 1).equals("-") &&
-                !equationCopy.substring(index, index + 1).equals("*") && !equationCopy.substring(index, index + 1).equals("/")) {
-            rightNumStr += equationCopy.substring(index, index + 1);
-            index++;
+       double result = 0;
+       int count;
+        if (indexOfOperationFromList == 0) {
+            count = 1;
         }
-        int leftNum = Integer.valueOf(rightNumStr);
-        return leftNum;
-    }
+        else {
+            count = indexOfOperationFromList + 2;
+//            count *= 2;
+//            count--;
+        } // doesn't work if it's the second one
+        Log.i("Mercado", String.valueOf(count));
 
+        if (operation.equals("+"))
+            result = numList.get(count - 1) + numList.get(count + 1);
+        else if (operation.equals("-"))
+            result = numList.get(count - 1) - numList.get(count + 1);
+        else if (operation.equals("*"))
+            result = numList.get(count - 1) * numList.get(count + 1);
+        else if (operation.equals("/"))
+            result = numList.get(count - 1) / numList.get(count + 1);
+
+        numList.set(count, result);
+        numList.remove(count - 1);
+        numList.remove(count);
+        operationList.remove(indexOfOperationFromList);
+        Log.i("Mercado", numList.toString());
+        Log.i("Mercado", operationList.toString());
+
+    }
 }
-
-
-
-
-
