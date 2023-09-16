@@ -8,10 +8,12 @@
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="211dp"
-        android:layout_height="78dp"
+        android:layout_width="@dimen/welcomeButtonWidth"
+        android:layout_height="@dimen/welcomeButtonHeight"
+        android:layout_margin="@dimen/buttonMargin"
         android:onClick="switchScreens"
-        android:text="Let's get started!"
+        android:padding="@dimen/buttonPadding"
+        android:text="@string/startButtonMessage"
         android:textSize="@dimen/welcomeButtonFontSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
