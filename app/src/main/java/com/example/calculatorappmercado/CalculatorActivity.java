@@ -82,10 +82,7 @@ public class CalculatorActivity extends AppCompatActivity {
             equationTV.setText(equation);
         }
     }
-
-    // need a public void showResult method
-    // evaluate expression method
-    // possibly a perform operations method
+    
 
     public void findNumList () {
         numList.clear();
