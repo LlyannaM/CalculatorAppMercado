@@ -119,6 +119,11 @@ public class CalculatorActivity extends AppCompatActivity {
 
     public void setOperationList () {
         operationList.clear();
+        Log.i("Mercado", "operation list making" + equation);
+        equation = equation.replace("+-", "-");
+        equation = equation.replace("--", "+");
+        Log.i("Mercado", "operation list edited" + equation);
+
         for (int i = 0; i < equation.length(); i++) {
             if (equation.charAt(i) == '+' || (equation.charAt(i) == '-' && i != 0)
                     || equation.charAt(i) == '/' || equation.charAt(i) == '*') {
