@@ -1,7 +1,7 @@
 <resources>
     <string name="welcomeMessage">Welcome to the Calculator App</string>
     <string name="equationText">Your equation appears here!</string>
-    <string name="answerText">Your Answer appears here!</string>
+    <string name="answerText">Your answer appears here!</string>
     <string name="errorMessage">Error</string>
     <string name="app_name">CalculatorAppMercado</string>
     <string name="title_activity_calculator">CalculatorActivity</string>

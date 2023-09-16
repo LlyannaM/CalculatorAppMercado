@@ -94,16 +94,11 @@ public class CalculatorActivity extends AppCompatActivity {
         int endIndex = 0;
 
         while (endIndex <= equation.length()) {
-            if (endIndex == equation.length() || !Character.isDigit(equation.charAt(endIndex)) && equation.charAt(endIndex) != '-') {
+            if (endIndex == equation.length() || !Character.isDigit(equation.charAt(endIndex))) {
                 if (endIndex > startIndex) {
                     String numberStr = equation.substring(startIndex, endIndex);
                     double number = 0;
-                    if (numberStr.startsWith("-") && numberStr.length() > 1) {
-                        number = -Double.parseDouble(numberStr.substring(1));
-                    }
-                    else {
-                        number = Double.parseDouble(numberStr);
-                    }
+                    number = Double.parseDouble(numberStr);
                     numList.add(number);
                     Log.i("Mercado", "findNumList currently adding " + numberStr);
                 }
@@ -111,6 +106,8 @@ public class CalculatorActivity extends AppCompatActivity {
             }
             endIndex++;
         }
+        if (equation.charAt(0) == '-')
+            numList.set(0, -numList.get(0));
         Log.i("Mercado", "findNumList initial" + numList.toString());
             for (int i = numList.size(); i > 0; i--) {
                     numList.add(i, null);
@@ -119,9 +116,6 @@ public class CalculatorActivity extends AppCompatActivity {
 
         Log.i("Mercado", "findNumList CREATED" + numList.toString());
             }
-
-
-
 
     public void setOperationList () {
         operationList.clear();
@@ -161,11 +155,6 @@ public class CalculatorActivity extends AppCompatActivity {
                     performOperation(operationList.indexOf("/"), "/");
                 }
 
-//                    if (operationList.indexOf("*") < operationList.indexOf("/") && operationList.indexOf("*") != -1 && operationList.indexOf("/") != -1) {
-//                        performOperation(operationList.indexOf("*"), "*");
-//                    } else if (operationList.indexOf("/") != -1) {
-//                        performOperation(operationList.indexOf("/"), "/");
-//                    }
             } else if (operationList.indexOf("+") != -1 || operationList.indexOf("-") != -1) {
                 int plusIndex = operationList.indexOf("+");
                 int minusIndex = operationList.indexOf("-"); // if minus index is
@@ -179,11 +168,6 @@ public class CalculatorActivity extends AppCompatActivity {
                 } else {
                     performOperation(operationList.indexOf("-"), "-");
                 }
-//                    if ((operationList.indexOf("+") < operationList.indexOf("-")) && operationList.indexOf("+") != -1 && operationList.indexOf("-") != -1) { // issue with logic is here.
-//                        performOperation(operationList.indexOf("+"), "+");
-//                    } else if (operationList.indexOf("-") != -1) {
-//                        performOperation(operationList.indexOf("-"), "-");
-//                    }
             }
         }
             result = numList.get(0);
@@ -198,7 +182,6 @@ public class CalculatorActivity extends AppCompatActivity {
                (equation.substring(0, 1).equals("/")) || (equation.substring(0, 1).equals("+")) ||
                (equation.substring(length - 1, length).equals("*")) || (equation.substring(length - 1, length).equals("/")) ||
                (equation.substring(length - 1, length).equals("+")) || (equation.substring(length - 1, length).equals("-"));
-
     }
 
     public void performOperation(int indexOfOperationFromList, String operation) {
