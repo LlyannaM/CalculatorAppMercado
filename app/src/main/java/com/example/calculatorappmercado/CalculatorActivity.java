@@ -94,10 +94,16 @@ public class CalculatorActivity extends AppCompatActivity {
         int endIndex = 0;
 
         while (endIndex <= equation.length()) {
-            if (endIndex == equation.length() || !Character.isDigit(equation.charAt(endIndex))) {
+            if (endIndex == equation.length() || !Character.isDigit(equation.charAt(endIndex)) && equation.charAt(endIndex) != '-') {
                 if (endIndex > startIndex) {
                     String numberStr = equation.substring(startIndex, endIndex);
-                    double number = Double.parseDouble(numberStr);
+                    double number = 0;
+                    if (numberStr.startsWith("-") && numberStr.length() > 1) {
+                        number = -Double.parseDouble(numberStr.substring(1));
+                    }
+                    else {
+                        number = Double.parseDouble(numberStr);
+                    }
                     numList.add(number);
                     Log.i("Mercado", "findNumList currently adding " + numberStr);
                 }
@@ -181,7 +187,7 @@ public class CalculatorActivity extends AppCompatActivity {
             }
         }
             result = numList.get(0);
-            resultTV.setText("= "  + String.valueOf(result));
+            resultTV.setText("= "  + result);
         }
     }
 
@@ -196,19 +202,20 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void performOperation(int indexOfOperationFromList, String operation) {
-        Log.i("Mercado", "performOperationCalled");
+        Log.i("Mercado", "performOperationCalled" + operation + String.valueOf(indexOfOperationFromList));
         Log.i("Mercado", numList.toString());
         Log.i("Mercado", operationList.toString());
 
        double result = 0;
-       int count;
+       int count = indexOfOperationFromList;
         if (indexOfOperationFromList == 0) {
             count = 1;
         }
         else {
-            count = indexOfOperationFromList + 2;
-//            count *= 2;
-//            count--;
+            //count = indexOfOperationFromList + 2;
+            count *= 2;
+            count++;
+            Log.i("Mercado", String.valueOf(count));
         } // doesn't work if it's the second one
         Log.i("Mercado", String.valueOf(count));
 
