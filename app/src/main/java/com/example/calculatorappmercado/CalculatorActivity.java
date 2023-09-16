@@ -105,11 +105,6 @@ public class CalculatorActivity extends AppCompatActivity {
         }
         if (equation.charAt(0) == '-')
             numList.set(0, -numList.get(0));
-        Log.i("Mercado", "findNumList initial" + numList.toString());
-            for (int i = numList.size(); i > 0; i--) {
-                    numList.add(i, null);
-                    Log.i("Mercado", "null added");
-                }
 
         Log.i("Mercado", "findNumList CREATED" + numList.toString());
             }
@@ -128,95 +123,86 @@ public class CalculatorActivity extends AppCompatActivity {
             }
         }
         Log.i("Mercado", "operation list created" + operationList.toString());
+        // if num elements in operationList is greater than numList, set error
+
     }
 
     public void showResult(View v) {
         Log.i("Mercado", "calculating result");
         TextView resultTV = findViewById(R.id.answerView);
         double result = 0;
-        if (typoCheck()) {
-            resultTV.setText("Error");
-        }
-        else {
-        findNumList();
-        setOperationList();
+        if(equation.length() != 0) {
+            findNumList();
+            setOperationList();
+            if (operationList.size() >= numList.size()) {
+                resultTV.setText("Error");
+            } else {
 
-        while (numList.size() > 2) {
 
-            if (operationList.indexOf("*") != -1 || operationList.indexOf("/") != -1) {
-                int multiplicationIndex = operationList.indexOf("*");
-                int divisionIndex = operationList.indexOf("/"); // if minus index is
+                while (numList.size() > 1) {
 
-                if (divisionIndex == -1) {
-                    performOperation(operationList.indexOf("*"), "*");
-                } else if (multiplicationIndex == -1) {
-                    performOperation(operationList.indexOf("/"), "/");
-                } else if (multiplicationIndex < divisionIndex) {
-                    performOperation(operationList.indexOf("*"), "*");
-                } else {
-                    performOperation(operationList.indexOf("/"), "/");
+                    if (operationList.indexOf("*") != -1 || operationList.indexOf("/") != -1) {
+                        int multiplicationIndex = operationList.indexOf("*");
+                        int divisionIndex = operationList.indexOf("/");
+
+                        if (divisionIndex == -1) {
+                            performOperation(operationList.indexOf("*"), "*");
+                        } else if (multiplicationIndex == -1) {
+                            performOperation(operationList.indexOf("/"), "/");
+                        } else if (multiplicationIndex < divisionIndex) {
+                            performOperation(operationList.indexOf("*"), "*");
+                        } else {
+                            performOperation(operationList.indexOf("/"), "/");
+                        }
+
+                    } else if (operationList.indexOf("+") != -1 || operationList.indexOf("-") != -1) {
+                        int plusIndex = operationList.indexOf("+");
+                        int minusIndex = operationList.indexOf("-");
+
+                        if (minusIndex == -1) {
+                            performOperation(operationList.indexOf("+"), "+");
+                        } else if (plusIndex == -1) {
+                            performOperation(operationList.indexOf("-"), "-");
+                        } else if (plusIndex < minusIndex) {
+                            performOperation(operationList.indexOf("+"), "+");
+                        } else {
+                            performOperation(operationList.indexOf("-"), "-");
+                        }
+                    }
                 }
-
-            } else if (operationList.indexOf("+") != -1 || operationList.indexOf("-") != -1) {
-                int plusIndex = operationList.indexOf("+");
-                int minusIndex = operationList.indexOf("-"); // if minus index is
-
-                if (minusIndex == -1) {
-                    performOperation(operationList.indexOf("+"), "+");
-                } else if (plusIndex == -1) {
-                    performOperation(operationList.indexOf("-"), "-");
-                } else if (plusIndex < minusIndex) {
-                    performOperation(operationList.indexOf("+"), "+");
-                } else {
-                    performOperation(operationList.indexOf("-"), "-");
-                }
+                result = numList.get(0);
+                resultTV.setText("= " + result);
             }
         }
-            result = numList.get(0);
-            resultTV.setText("= "  + result);
-        }
-    }
-// needs to check instances like */ or /* or *- or /+ and so on
-    public boolean typoCheck () {
-        int length = equation.length();
-       return (equation.length() == 0) || (equation.indexOf("**") != -1) || (equation.indexOf("//") != -1)
-               || (equation.indexOf("++") != -1) || (equation.indexOf("**") != -1) || (equation.substring(0, 1).equals("*")) || (equation.indexOf("..") != -1) ||
-               (equation.substring(0, 1).equals("/")) || (equation.substring(0, 1).equals("+")) ||
-               (equation.substring(length - 1, length).equals("*")) || (equation.substring(length - 1, length).equals("/")) ||
-               (equation.substring(length - 1, length).equals("+")) || (equation.substring(length - 1, length).equals("-"));
     }
 
-    public void performOperation(int indexOfOperationFromList, String operation) {
-        Log.i("Mercado", "performOperationCalled" + operation + String.valueOf(indexOfOperationFromList));
+
+
+    public void performOperation(int indexOfOperation, String operation) {
+        Log.i("Mercado", "performOperationCalled" + operation + indexOfOperation);
         Log.i("Mercado", numList.toString());
         Log.i("Mercado", operationList.toString());
+        double result = 0;
 
-       double result = 0;
-       int count = indexOfOperationFromList;
-        if (indexOfOperationFromList == 0) {
-            count = 1;
-        }
-        else {
-            //count = indexOfOperationFromList + 2;
-            count *= 2;
-            count++;
-            Log.i("Mercado", String.valueOf(count));
-        } // doesn't work if it's the second one
-        Log.i("Mercado", String.valueOf(count));
+        Log.i("Mercado", String.valueOf(indexOfOperation));
+
+        double firstNum = numList.get(indexOfOperation);
+        double secondNum = numList.get(indexOfOperation+1);
+
 
         if (operation.equals("+"))
-            result = numList.get(count - 1) + numList.get(count + 1);
+            result = firstNum + secondNum;
         else if (operation.equals("-"))
-            result = numList.get(count - 1) - numList.get(count + 1);
+            result = firstNum - secondNum;
         else if (operation.equals("*"))
-            result = numList.get(count - 1) * numList.get(count + 1);
+            result = firstNum * secondNum;
         else if (operation.equals("/"))
-            result = numList.get(count - 1) / numList.get(count + 1);
+            result = firstNum / secondNum;
 
-        numList.set(count, result);
-        numList.remove(count - 1);
-        numList.remove(count);
-        operationList.remove(indexOfOperationFromList);
+
+        numList.set(indexOfOperation, result);
+        numList.remove(indexOfOperation+1);
+        operationList.remove(indexOfOperation);
         Log.i("Mercado", numList.toString());
         Log.i("Mercado", operationList.toString());
 
