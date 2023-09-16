@@ -9,7 +9,6 @@
     <dimen name="equationFontSize">30sp</dimen>
     <dimen name="answerFontSize">40sp</dimen>
     <dimen name="equationTextViewHeight">200dp</dimen>
-    <dimen name="equationTextViewWidth">340dp</dimen>
-    <dimen name="answerTextViewWidth">340dp</dimen>
+    <dimen name="equationAndAnswerTextViewWidth">340dp</dimen>
     <dimen name="buttonPadding">10dp</dimen>
 </resources>

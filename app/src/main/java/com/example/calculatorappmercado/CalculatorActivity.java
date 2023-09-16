@@ -101,6 +101,8 @@ public class CalculatorActivity extends AppCompatActivity {
             if (endIndex == equation.length() || !Character.isDigit(equation.charAt(endIndex))) {
                 if (endIndex > startIndex) {
                     String numberStr = equation.substring(startIndex, endIndex);
+                    // I used the .parseDouble() function to convert a number in a String to a double
+                    // in order to perform calculations. I learned about this function here: https://www.digitalocean.com/community/tutorials/java-convert-string-to-double.
                     double number = Double.parseDouble(numberStr);
                     numList.add(number);
                     Log.i("Mercado", "currently adding " + numberStr + " to numList");
@@ -118,6 +120,7 @@ public class CalculatorActivity extends AppCompatActivity {
         operationList.clear();
 
         equation = equation.replace("+-", "-");
+        equation = equation.replace("-+", "-");
         equation = equation.replace("--", "+");
 
         for (int i = 0; i < equation.length(); i++) {
@@ -135,8 +138,8 @@ public class CalculatorActivity extends AppCompatActivity {
         TextView resultTV = findViewById(R.id.answerView);
         double result = 0;
         if(equation.length() != 0) {
-            findNumList();
             setOperationList();
+            findNumList();
             if (operationList.size() >= numList.size()) {
                 resultTV.setText("Syntax Error");
             }

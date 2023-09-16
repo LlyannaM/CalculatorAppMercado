@@ -290,7 +290,7 @@
 
         <TextView
             android:id="@+id/equationView"
-            android:layout_width="@dimen/equationTextViewWidth"
+            android:layout_width="@dimen/equationAndAnswerTextViewWidth"
             android:layout_height="@dimen/equationTextViewHeight"
             android:layout_margin="@dimen/buttonMargin"
             android:layout_weight="1"
@@ -300,15 +300,14 @@
 
         <TextView
             android:id="@+id/answerView"
-            android:layout_width="@dimen/answerTextViewWidth"
+            android:layout_width="@dimen/equationAndAnswerTextViewWidth"
             android:layout_height="@dimen/equationTextViewHeight"
             android:layout_margin="@dimen/buttonMargin"
             android:layout_weight="1"
             android:text="@string/answerText"
             android:textColor="@color/md_theme_dark_onBackground"
             android:textSize="@dimen/answerFontSize"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
             <!-- android:textStyle="bold" makes the answer text bold.
             I found this resource from: https://www.tutorialkart.com/kotlin-android/android-textview-bold/#gsc.tab=0 -->
 
