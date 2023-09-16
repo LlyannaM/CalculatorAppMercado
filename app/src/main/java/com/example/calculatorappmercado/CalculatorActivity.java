@@ -82,7 +82,7 @@ public class CalculatorActivity extends AppCompatActivity {
             equationTV.setText(equation);
         }
     }
-    
+
 
     public void findNumList () {
         numList.clear();
@@ -176,7 +176,7 @@ public class CalculatorActivity extends AppCompatActivity {
             resultTV.setText("= "  + result);
         }
     }
-
+// needs to check instances like */ or /* or *- or /+ and so on
     public boolean typoCheck () {
         int length = equation.length();
        return (equation.length() == 0) || (equation.indexOf("**") != -1) || (equation.indexOf("//") != -1)
